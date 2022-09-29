@@ -8,7 +8,7 @@ async function main() {
 
   const Token = await hre.ethers.getContractFactory('Token');
   const token = await Token.attach(
-    '0xF0379849043B010BBA32578D6F54dC8C2e39E979', // The deployed token contract address
+    '0x3637e9e884f8564Fa333D80c2e5b8f541AF55954', // The deployed token contract address
   );
 
   // Get amount to send as 1 token

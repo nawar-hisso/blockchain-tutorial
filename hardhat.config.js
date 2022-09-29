@@ -1,9 +1,9 @@
 require('@nomicfoundation/hardhat-toolbox');
+require('dotenv').config();
 
-const MUMBAI_RPC_URL =
-  'https://polygon-mumbai.g.alchemy.com/v2/bb9uBu19CPKGCZvDpBdtZHc-8b3kAN-g';
-const PRIVATE_KEY =
-  'cc292faf9ad5ee7860f3050c73f71c40bf2aeefbdff337769bfcfd95c1575b5e';
+const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL;
+const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
+const MUMBAI_API_KEY = process.env.MUMBAI_API_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -11,7 +11,12 @@ module.exports = {
   networks: {
     mumbai: {
       url: MUMBAI_RPC_URL,
-      accounts: [`0x${PRIVATE_KEY}`],
+      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
+    },
+  },
+  etherscan: {
+    apiKey: {
+      polygonMumbai: MUMBAI_API_KEY,
     },
   },
 };

@@ -1,5 +1,6 @@
 const hre = require('hardhat');
 const fs = require('fs');
+require('dotenv').config();
 
 async function main() {
   const name = 'Nawar';
@@ -9,15 +10,10 @@ async function main() {
   const token = await Token.deploy(name, symbol);
   // QUESTION: Why is the following statement?
   await token.deployed();
-  const tokenAddress = token.address;
-  const tokenABI = JSON.parse(token.interface.format('json'));
-  const data = {
-    address: tokenAddress,
-    abi: tokenABI,
-  };
-  console.log(`Token address: ${tokenAddress}`);
-  console.log(`Token ABI: ${JSON.stringify(tokenABI)}`);
-  //fs.writeFileSync('Nawar.json', JSON.stringify(data));
+  const data = { address: token.address, github_repo: process.env.GITHUB_REPO };
+
+  console.log(`Token address: ${data.address}`);
+  fs.writeFileSync('data.json', JSON.stringify(data));
 }
 
 main().catch(error => {
