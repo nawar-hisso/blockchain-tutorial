@@ -9,7 +9,7 @@ describe('Token', function () {
 
   async function deployToken() {
     const Token = await hre.ethers.getContractFactory('Token');
-    const token = await Token.deploy();
+    const token = await Token.deploy(_tokenName, _tokenSymbol);
 
     return { token };
   }
