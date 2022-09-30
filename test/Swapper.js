@@ -8,6 +8,7 @@ describe('Swapper', async function () {
   const _tokenSymbol = 'KRT';
   const _totalSupply = '1000000';
   const _amountToSwap = '100';
+  const wrongAmountToSwap = hre.ethers.utils.parseEther('1000000000');
 
   const amountToSwap = hre.ethers.utils.parseEther(_amountToSwap);
   const amountToSwapForB = hre.ethers.utils.parseEther(
@@ -17,6 +18,8 @@ describe('Swapper', async function () {
   const ownerBalanceAfterSwap = hre.ethers.utils.parseEther(
     (Number(_totalSupply) - Number(_amountToSwap)).toString(),
   );
+
+  const wrongTokenAddress = '0x37656C3F841066756138606c4dAD202cf290f3A3';
 
   /**
    * Deploy a new Swapper contract
@@ -125,28 +128,19 @@ describe('Swapper', async function () {
 
       // Token Not
       await expect(
-        swapper.swap(
-          '0x37656C3F841066756138606c4dAD202cf290f3A3',
-          amountToSwap,
-        ),
+        swapper.swap(wrongTokenAddress, amountToSwap),
       ).to.be.revertedWith('Your token cannot be swapped');
 
       await expect(
-        swapper.unswap(
-          '0x37656C3F841066756138606c4dAD202cf290f3A3',
-          amountToSwap,
-        ),
+        swapper.unswap(wrongTokenAddress, amountToSwap),
       ).to.be.revertedWith('Your token cannot be swapped');
 
       await expect(
-        swapper.swap(tokenA.address, hre.ethers.utils.parseEther('1000000000')),
+        swapper.swap(tokenA.address, wrongAmountToSwap),
       ).to.be.revertedWith('Insufficient token balance to swap');
 
       await expect(
-        swapper.unswap(
-          tokenA.address,
-          hre.ethers.utils.parseEther('1000000000'),
-        ),
+        swapper.unswap(tokenA.address, wrongAmountToSwap),
       ).to.be.revertedWith('Insufficient token balance to swap');
     });
 
@@ -155,14 +149,11 @@ describe('Swapper', async function () {
       swapper.setOutputToken(tokenC.address);
 
       await expect(
-        swapper.swap(tokenA.address, hre.ethers.utils.parseEther('1000000000')),
+        swapper.swap(tokenA.address, wrongAmountToSwap),
       ).to.be.revertedWith('Insufficient token balance to swap');
 
       await expect(
-        swapper.unswap(
-          tokenA.address,
-          hre.ethers.utils.parseEther('1000000000'),
-        ),
+        swapper.unswap(tokenA.address, wrongAmountToSwap),
       ).to.be.revertedWith('Insufficient token balance to swap');
     });
   });
