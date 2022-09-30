@@ -1,5 +1,7 @@
 require('@nomicfoundation/hardhat-toolbox');
 require('dotenv').config();
+require('./tasks/deployToken.js');
+require('./tasks/deployContract.js');
 
 const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL;
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
