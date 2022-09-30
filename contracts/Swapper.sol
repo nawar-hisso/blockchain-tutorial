@@ -12,6 +12,24 @@ contract Swapper is Ownable {
     address outputToken = 0x1cCe6F9e37B3E00e3DE597F600B7D89E3807373B;
 
     /**
+     * Set the Input Token Address only by the owner himself
+     *
+     * @param _address address of token
+     */
+    function setInputTokenA (address _address) external onlyOwner {
+        inputTokenA = _address;
+    }
+
+    /**
+     * Set the Input Token Address only by the owner himself
+     *
+     * @param _address address of token
+     */
+    function setInputTokenB (address _address) external onlyOwner {
+        inputTokenB = _address;
+    }
+
+    /**
      * Set the Output Token Address only by the owner himself
      *
      * @param _address address of token
